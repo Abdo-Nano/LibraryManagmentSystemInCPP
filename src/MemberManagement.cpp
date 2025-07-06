@@ -7,6 +7,7 @@
 
 MemberManagement::MemberManagement() = default;
 
+
 std::vector<Member>::iterator MemberManagement::findMember(int id) {
     return std::find(members.begin() , members.end() , id);
 }
@@ -15,7 +16,10 @@ std::vector<Member>::iterator MemberManagement::findMember(int id) {
 bool MemberManagement::addMember(const Member &member) {
     if (findMember(member.getId()) != members.end())
         return false;
-    members.push_back(std::move(member));
+
+    auto comp = [](const Member& a, const Member& b) {return a.getId() < b.getId();};
+    auto position = std::lower_bound(members.begin() , members.end() , member , comp);
+    members.insert(position , member);
     return true;
 }
 
@@ -40,6 +44,23 @@ bool MemberManagement::updateMember(int id, const std::string& newName) {
 
 const std::vector<Member>& MemberManagement::getAllMembers() const {
     return members;
+}
+
+std::optional<Member> MemberManagement::getMember(int id) const {
+    int left = 0;
+    int right = members.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (members[mid].getId() == id)
+            return members[mid];
+
+        if (members[mid].getId() < id)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return std::nullopt;
 }
 
 

@@ -18,7 +18,8 @@ public:
     int getId() const ;
     const std::string& getName() const ;
     void setName(const std::string& newName );
-    bool operator ==(int otherId) const;
+    bool operator==(int otherId) const;
+    bool operator==(const Member& other) const;
 };
 
 

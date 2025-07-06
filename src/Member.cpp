@@ -28,3 +28,9 @@ const std::string& Member::getName() const {
 bool Member::operator==(int otherId) const {
     return id == otherId;
 }
+
+
+bool Member::operator==(const Member &other) const {
+    return other.getId() == this->id && other.getName() == this->name;
+}
+

@@ -4,6 +4,7 @@
 
 #ifndef BOOKINVENTORY_H
 #define BOOKINVENTORY_H
+#include <optional>
 #include <vector>
 #include "Book.h"
 
@@ -19,6 +20,7 @@ public:
     bool addBook(const Book& book);
     bool updateBook(int id , const Book& book);
     bool removeBook(int id);
+    std::optional<Book> getBook(int id) const ;
     const std::vector<Book>& getBooks() const;
 };
 

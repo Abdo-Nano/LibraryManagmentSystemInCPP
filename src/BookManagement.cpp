@@ -44,4 +44,11 @@ bool BookManagement::removeBook(int id) {
     return true;
 }
 
+std::optional<Book> BookManagement::getBook(int id) const {
+    auto it = std::find_if(books.begin() , books.end(), [&id](const Book& book) {return id == book.getId();});
+    if (it != books.end())
+        return *it;
+    return std::nullopt;
+}
+
 
